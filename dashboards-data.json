@@ -1,0 +1,11 @@
+{
+  "siteTexts": {},
+  "dashboards": [
+    { "id": "seed1", "title": "WASH FIT Dashboard Moçambique", "link": "#", "image": "" },
+    { "id": "seed2", "title": "Nexus Finance", "link": "#", "image": "" },
+    { "id": "seed3", "title": "Aviário José Tinta", "link": "#", "image": "" },
+    { "id": "seed4", "title": "Painel de Gelados", "link": "#", "image": "" },
+    { "id": "seed5", "title": "M&E Data Quality Dashboard", "link": "#", "image": "" },
+    { "id": "seed6", "title": "CFRM Cabo Delgado", "link": "#", "image": "" }
+  ]
+}
