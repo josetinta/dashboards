@@ -451,7 +451,7 @@ let siteTexts = {};
 
 async function loadSiteData(){
   try{
-    const res = await fetch(DATA_FILE_PATH + '?t=' + Date.now());
+    const res = await fetch(DATA_FILE_PATH);
     if(!res.ok) throw new Error('sem ficheiro ainda');
     const json = await res.json();
     dashboards = (json.dashboards && json.dashboards.length) ? json.dashboards : seedData;
@@ -522,7 +522,7 @@ function renderGrid(){
   area.innerHTML = '<div class="grid">' + dashboards.map(d => `
     <a class="card" href="${d.link && d.link !== '#' ? escapeHtml(d.link) : '#'}" ${d.link && d.link !== '#' ? 'target="_blank" rel="noopener"' : 'onclick="return false;"'}>
       ${d.image
-        ? `<img class="thumb" src="${escapeHtml(d.image)}" alt="${escapeHtml(d.title)}" onerror="this.outerHTML='<div class=&quot;thumb-fallback&quot;>Sem pré-visualização</div>'">`
+        ? `<img class="thumb" loading="lazy" decoding="async" src="${escapeHtml(d.image)}" alt="${escapeHtml(d.title)}" onerror="this.outerHTML='<div class=&quot;thumb-fallback&quot;>Sem pré-visualização</div>'">`
         : `<div class="thumb-fallback">Dashboard</div>`}
       <div class="body">
         <h3>${escapeHtml(d.title)}</h3>
@@ -568,7 +568,7 @@ window.editDashboard = function(id){
 
 window.deleteDashboard = async function(id){
   if(!confirm('Eliminar este dashboard? Esta ação não pode ser desfeita.')) return;
-  const previous = dashboards;
+  const previous = [...dashboards];
   dashboards = dashboards.filter(x => x.id !== id);
   const statusEl = document.getElementById('formStatus');
   statusEl.className = 'status-msg';
@@ -602,6 +602,23 @@ function fileToDataUrl(file){
   });
 }
 
+async function uploadDashboardImage(file, id){
+  const token = document.getElementById('ghToken').value.trim();
+  if(!token) throw new Error('Introduz o token do GitHub.');
+  const ext = file.type === 'image/webp' ? 'webp' : file.type === 'image/jpeg' ? 'jpg' : 'png';
+  const path = `images/${id}.${ext}`;
+  const apiUrl = `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/contents/${path}`;
+  const existing = await fetch(apiUrl + `?ref=${GITHUB_BRANCH}`, {headers:{Authorization:`Bearer ${token}`}});
+  if(!existing.ok && existing.status !== 404) throw new Error(`Erro ${existing.status} ao verificar imagem.`);
+  const old = existing.ok ? await existing.json() : null;
+  const content = (await fileToDataUrl(file)).split(',')[1];
+  const body = {message:'Adicionar/atualizar imagem do dashboard',content,branch:GITHUB_BRANCH};
+  if(old) body.sha=old.sha;
+  const res=await fetch(apiUrl,{method:'PUT',headers:{Authorization:`Bearer ${token}`,'Content-Type':'application/json'},body:JSON.stringify(body)});
+  if(!res.ok){const error=await res.json().catch(()=>({}));throw new Error(error.message || `Erro ${res.status} ao enviar imagem.`);}
+  return path;
+}
+
 document.getElementById('dashForm').addEventListener('submit', async (e) => {
   e.preventDefault();
   const statusEl = document.getElementById('formStatus');
@@ -622,14 +639,14 @@ document.getElementById('dashForm').addEventListener('submit', async (e) => {
       statusEl.className = 'status-msg err';
       return;
     }
-    try{ image = await fileToDataUrl(file); }
+    try{ image = await uploadDashboardImage(file, id); }
     catch(e){ statusEl.textContent = 'Não foi possível ler o ficheiro.'; statusEl.className='status-msg err'; return; }
   }
 
   if(!title){ statusEl.textContent = 'O nome do dashboard é obrigatório.'; statusEl.className = 'status-msg err'; return; }
 
   const entry = { id, title, link, image: image || '' };
-  const previous = dashboards;
+  const previous = [...dashboards];
   if(existingIndex >= 0) dashboards[existingIndex] = entry;
   else dashboards = [...dashboards, entry];
 
