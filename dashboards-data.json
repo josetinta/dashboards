@@ -660,6 +660,12 @@
       "title": "Dashboard de Vendas Roupa Desportiva",
       "link": "https://josetinta.github.io/vendas-roupa-desportiva/",
       "image": "images/d1795260546896.png"
+    },
+    {
+      "id": "d1795260628813",
+      "title": "Dashboard Cronograma de Actividades",
+      "link": "https://josetinta.github.io/dashboard-cronograma-actividades/",
+      "image": "images/d1795260628813.png"
     }
   ]
 }
