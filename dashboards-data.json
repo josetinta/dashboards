@@ -672,6 +672,12 @@
       "title": "Dashboard de Vendas do Restaurante",
       "link": "https://josetinta.github.io/dashboard-vendas-restaurante/",
       "image": "images/d1795260697909.png"
+    },
+    {
+      "id": "d1795260795059",
+      "title": "Dashboard de Gestão Agrícola",
+      "link": "https://josetinta.github.io/dashboard-gestao-agricola/",
+      "image": "images/d1795260795059.png"
     }
   ]
 }
