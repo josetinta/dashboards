@@ -612,6 +612,12 @@
       "title": "Dashboard Monitoria Ambiental",
       "link": "https://josetinta.github.io/dashboard-monitoria-ambiental/",
       "image": "images/d1795259855919.png"
+    },
+    {
+      "id": "d1795259920856",
+      "title": "Port Operations Dashboard",
+      "link": "https://josetinta.github.io/port-operations-dashboard/",
+      "image": "images/d1795259920856.png"
     }
   ]
 }
