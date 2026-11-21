@@ -630,6 +630,12 @@
       "title": "Dashboard Plataforma de Saúde",
       "link": "https://josetinta.github.io/dashboard-plataforma-saude/",
       "image": "images/d1795260055166.png"
+    },
+    {
+      "id": "d1795260132911",
+      "title": "Dashboard Vendas de Viaturas",
+      "link": "https://josetinta.github.io/dashboard-vendas-viaturas/",
+      "image": "images/d1795260132911.png"
     }
   ]
 }
