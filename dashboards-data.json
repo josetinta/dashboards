@@ -678,6 +678,12 @@
       "title": "Dashboard de Gestão Agrícola",
       "link": "https://josetinta.github.io/dashboard-gestao-agricola/",
       "image": "images/d1795260795059.png"
+    },
+    {
+      "id": "d1795260875180",
+      "title": "Dashboard de Vendas de Sorvetes",
+      "link": "https://josetinta.github.io/dashboard-vendas-sorvetes/",
+      "image": "images/d1795260875180.png"
     }
   ]
 }
