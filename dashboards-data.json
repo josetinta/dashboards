@@ -666,6 +666,12 @@
       "title": "Dashboard Cronograma de Actividades",
       "link": "https://josetinta.github.io/dashboard-cronograma-actividades/",
       "image": "images/d1795260628813.png"
+    },
+    {
+      "id": "d1795260697909",
+      "title": "Dashboard de Vendas do Restaurante",
+      "link": "https://josetinta.github.io/dashboard-vendas-restaurante/",
+      "image": "images/d1795260697909.png"
     }
   ]
 }
